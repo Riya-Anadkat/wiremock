@@ -154,8 +154,15 @@ public class ResponseTemplateTransformer extends ResponseDefinitionTransformer
               responseDefinition.getProxyBaseUrl());
       String newProxyBaseUrl = uncheckedApplyTemplate(proxyBaseUrlTemplate, model);
 
+      HandlebarsOptimizedTemplate proxyUrlPrefixToRemoveTemplate =
+          templateEngine.getTemplate(
+              HttpTemplateCacheKey.forProxyUrlPrefixToRemove(responseDefinition),
+              responseDefinition.getProxyUrlPrefixToRemove());
+      String newProxyUrlPrefixToRemove = uncheckedApplyTemplate(proxyUrlPrefixToRemoveTemplate, model);
+
       ResponseDefinitionBuilder.ProxyResponseDefinitionBuilder newProxyResponseDefBuilder =
-          newResponseDefBuilder.proxiedFrom(newProxyBaseUrl);
+          newResponseDefBuilder.proxiedFrom(newProxyBaseUrl)
+                  .withProxyUrlPrefixToRemove(newProxyUrlPrefixToRemove);
 
       if (responseDefinition.getAdditionalProxyRequestHeaders() != null) {
         Iterable<HttpHeader> newResponseHeaders =

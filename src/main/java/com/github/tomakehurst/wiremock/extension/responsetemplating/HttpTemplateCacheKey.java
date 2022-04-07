@@ -23,7 +23,8 @@ public class HttpTemplateCacheKey {
   public enum ResponseElement {
     BODY,
     PROXY_URL,
-    HEADER
+    HEADER,
+    PROXY_PREFIX_TO_REMOVE_URL
   }
 
   private final ResponseDefinition responseDefinition;
@@ -49,6 +50,11 @@ public class HttpTemplateCacheKey {
   public static HttpTemplateCacheKey forProxyUrl(ResponseDefinition responseDefinition) {
     return new HttpTemplateCacheKey(
         responseDefinition, ResponseElement.PROXY_URL, "[proxyUrl]", null);
+  }
+
+  public static HttpTemplateCacheKey forProxyUrlPrefixToRemove(ResponseDefinition responseDefinition) {
+    return new HttpTemplateCacheKey(
+        responseDefinition, ResponseElement.PROXY_PREFIX_TO_REMOVE_URL, "[proxyPrefixToRemoveUrl]", null);
   }
 
   private HttpTemplateCacheKey(

@@ -2,6 +2,26 @@
 
 Extends WireMock with a graphical user interface
 
+## Building WireMock locally
+-------------------------
+To run all of WireMock's tests:
+```bash
+./gradlew clean test
+```
+
+To build both JARs (thin and standalone):
+```bash
+./gradlew jar shadowJar 
+```
+
+The built JAR will be placed under ``build/libs``.
+
+To publish both JARs to your local Maven repository:
+
+```bash
+./gradlew publishToMavenLocal
+```
+
 ## Key Features
 - Mappings
   - A paginated list or folder view of all mappings

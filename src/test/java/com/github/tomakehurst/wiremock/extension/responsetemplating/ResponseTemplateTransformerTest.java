@@ -283,9 +283,11 @@ public class ResponseTemplateTransformerTest {
             mockRequest().url("/things").header("X-WM-Uri", "http://localhost:8000"),
             aResponse()
                 .proxiedFrom("{{request.headers.X-WM-Uri}}")
+                .withProxyUrlPrefixToRemove("/{{request.path.[0]}}")
                 .withAdditionalRequestHeader("X-Origin-Url", "{{request.url}}"));
 
     assertThat(transformedResponseDef.getProxyBaseUrl(), is("http://localhost:8000"));
+    assertThat(transformedResponseDef.getProxyUrlPrefixToRemove(), is("/things"));
     assertThat(transformedResponseDef.getAdditionalProxyRequestHeaders(), notNullValue());
     assertThat(
         transformedResponseDef
